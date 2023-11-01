@@ -35,7 +35,10 @@ class CalculateTotalCostJob implements ShouldQueue
      */
     public function handle()
     {
-        $totalCost = OrdersLine::sum(DB::raw('qty * (SELECT cost FROM products WHERE products.id = orders_lines.product_id)'));
+        $totalCost = OrdersLine::with('product')->get()->sum(function ($orderLine) {
+            return $orderLine->qty * $orderLine->product->cost;
+        });
+
         $message = 'El costo total de todas las órdenes es: ' . $totalCost;
         fwrite(STDOUT, $message.PHP_EOL);
     }

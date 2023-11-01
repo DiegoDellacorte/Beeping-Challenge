@@ -23,12 +23,11 @@ class OrdersSeeder extends Seeder
                 'customer_name' => 'Customer ' . ($i + 1),
             ]);
             
-            for ($j = 0; $j < 2; $j++) {
-                $order->lines()->create([
-                    'qty' => rand(1, 10),
-                    'product_id' => rand(1, 10),
-                ]);
-            }
+            
+            $order->lines()->create([
+                'qty' => rand(1, 10),
+                'product_id' => rand(1, 10),
+            ]);
         }
         for ($i = 0; $i < 10; $i++) {
             Product::create([
