@@ -14,14 +14,11 @@ class CreateOrdersLinesTable extends Migration
     public function up()
     {
         Schema::create('orders_lines', function (Blueprint $table) {
-            Schema::table('orders', function (Blueprint $table) {
-                $table->bigIncrements('id');
-                $table->unsignedBigInteger('order_id');
-                $table->integer('qty');
-                $table->unsignedBigInteger('product_id');
-                $table->timestamp('created_at')->nullable();
-                $table->timestamp('updated_at')->nullable();
-            });
+            $table->id();
+            $table->bigInteger('order_id');
+            $table->integer('qty');
+            $table->bigInteger('product_id');
+            $table->timestamps();
         });
     }
 
@@ -32,6 +29,6 @@ class CreateOrdersLinesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders_lines');
+        Schema::dropIfExists('Orders');
     }
 }
